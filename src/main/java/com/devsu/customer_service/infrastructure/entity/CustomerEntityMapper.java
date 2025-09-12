@@ -10,18 +10,22 @@ public class CustomerEntityMapper implements Mapper<CustomerCreateInput, Custome
 
 	@Override
 	public CustomerEntity map(CustomerCreateInput customerCreateInput) {
-		CustomerEntity entity = new CustomerEntity();
-		entity.setId(Generator.ulid());
+		LocalDateTime current = LocalDateTime.now();
+
+		CustomerEntity entity = (CustomerEntity)new CustomerEntity()
+		  .setId(Generator.ulid())
+		  .setName(customerCreateInput.getName())
+		  .setGender(customerCreateInput.getGender())
+		  .setAge(customerCreateInput.getAge())
+		  .setAddress(customerCreateInput.getAddress())
+		  .setPhone(customerCreateInput.getPhone())
+		  .setIsActive(Boolean.TRUE)
+		  .setIsDeleted(Boolean.FALSE)
+		  .setCreatedAt(current)
+		  .setUpdatedAt(current);
+
 		entity.setClientId(customerCreateInput.getClientId());
-		entity.setName(customerCreateInput.getName());
-		entity.setGender(customerCreateInput.getGender());
-		entity.setAge(customerCreateInput.getAge());
-		entity.setAddress(customerCreateInput.getAddress());
-		entity.setPhone(customerCreateInput.getPhone());
 		entity.setEncryptedPassword(customerCreateInput.getEncryptedPassword());
-		entity.setIsActive(Boolean.TRUE);
-		entity.setIsDeleted(Boolean.FALSE);
-		entity.setCreatedAt(LocalDateTime.now());
 
 		return entity;
 	}

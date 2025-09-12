@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:db_customers}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:db_customers_test}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:postgres}
     driver-class-name: ${SPRING_DATASOURCE_DRIVER-CLASS-NAME:org.postgresql.Driver}
@@ -20,12 +20,11 @@ spring:
     default-property-inclusion: non_null
     mapper:
       sort-properties-alphabetically: false
-
   output:
     ansi:
       enabled: ALWAYS
-  config:
-    import: optional:classpath:${OPENAPI_LANGUAGE:i18n/swagger_messages.properties}
+#  config:
+#    import: optional:classpath:${OPENAPI_LANGUAGE:i18n/swagger_messages.properties}
 
 openapi:
   servers:

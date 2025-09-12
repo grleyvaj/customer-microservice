@@ -194,7 +194,7 @@ public interface CustomersApi {
 	  @Parameter(
 		in = ParameterIn.PATH,
 		name = "id",
-		description = "${entity.id.description}",
+		description = "${customer.id.description}",
 		required = true,
 		schema = @Schema(type = "string", format = "ulid", example = "01HZX0SYT8P7TQ2J0GKH2HF26R")
 	  ) String id

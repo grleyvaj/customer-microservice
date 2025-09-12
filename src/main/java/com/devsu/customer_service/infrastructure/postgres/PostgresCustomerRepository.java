@@ -39,7 +39,6 @@ public class PostgresCustomerRepository implements CustomerRepository {
 			this.customerEntityMapper.map(customerCreateInput)
 		  )
 		);
-
 	}
 
 	@Override

@@ -1,0 +1,651 @@
+openapi: 3.0.1
+info:
+  title: CUSTOMER MICROSERVICE
+  description: Microservice for manage persons and customers
+  contact:
+    name: Support Team
+    email: leyvajerezgr@gmail.com
+  version: 0.0.1-SNAPSHOT
+servers:
+  - url: http://localhost:8081
+    description: Develop server
+  - url: http://staging:8081
+    description: UAT server
+  - url: http://prod:8081
+    description: Production server
+tags:
+  - name: Customers
+    description: API for managing customer information
+paths:
+  /customers/{id}:
+    get:
+      tags:
+        - Customers
+      summary: Get customer details
+      description: Retrieve detailed information about a specific customer by ID
+      operationId: getDetailCustomer
+      parameters:
+        - name: id
+          in: path
+          description: Customer identifier
+          required: true
+          schema:
+            type: string
+            format: ulid
+            example: 01HZX0SYT8P7TQ2J0GKH2HF26R
+      responses:
+        '200':
+          description: Customer details successfully retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDetailResponse'
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Resource forbidden.
+        '404':
+          description: Some ID you requested was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Something in the server was wrong.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+        - Customers
+      summary: Update customer
+      description: Modify the information of an existing customer
+      operationId: updateCustomer
+      parameters:
+        - name: id
+          in: path
+          description: Customer identifier
+          required: true
+          schema:
+            type: string
+            format: ulid
+            example: 01HZX0SYT8P7TQ2J0GKH2HF26R
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: Customer successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDetailResponse'
+        '400':
+          description: Something in the request was wrong.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponseList'
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Resource forbidden.
+        '404':
+          description: Some ID you requested was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Something in the server was wrong.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Customers
+      summary: Delete customer
+      description: Delete an existing customer by ID
+      operationId: deleteCustomer
+      parameters:
+        - name: id
+          in: path
+          description: Customer identifier
+          required: true
+          schema:
+            type: string
+            format: ulid
+            example: 01HZX0SYT8P7TQ2J0GKH2HF26R
+      responses:
+        '204':
+          description: Customer deleted successfully
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Resource forbidden.
+        '404':
+          description: Some ID you requested was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Something in the server was wrong.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      tags:
+        - Customers
+      summary: Partially update customer
+      description: Update only the specified fields of an existing customer
+      operationId: updatePartialCustomer
+      parameters:
+        - name: id
+          in: path
+          description: Customer identifier
+          required: true
+          schema:
+            type: string
+            format: ulid
+            example: 01HZX0SYT8P7TQ2J0GKH2HF26R
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerPartialUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: Customer partially updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDetailResponse'
+        '400':
+          description: Something in the request was wrong.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponseList'
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Resource forbidden.
+        '404':
+          description: Some ID you requested was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Something in the server was wrong.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /customers/{id}/credentials:
+    put:
+      tags:
+        - Customers
+      summary: Update customer credentials
+      description: Update the password of an existing customer
+      operationId: updateCustomerCredentials
+      parameters:
+        - name: id
+          in: path
+          description: Customer identifier
+          required: true
+          schema:
+            type: string
+            format: ulid
+            example: 01HZX0SYT8P7TQ2J0GKH2HF26R
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCredentialsUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: Customer credentials updated successfully
+        '400':
+          description: Something in the request was wrong.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponseList'
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Resource forbidden.
+        '404':
+          description: Some ID you requested was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Something in the server was wrong.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /customers:
+    get:
+      tags:
+        - Customers
+      summary: Get all customers (paginated)
+      description: Retrieve a paginated list of all registered customers
+      operationId: getAllCustomers
+      parameters:
+        - name: page
+          in: query
+          description: Page number
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+          example: 0
+        - name: size
+          in: query
+          description: Number of results per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+          example: 10
+        - name: sort
+          in: query
+          description: Results sorted by field and the specified order.
+          required: false
+          schema:
+            type: string
+            enum:
+              - ASC
+              - DESC
+            default: DESC
+          example: ASC
+      responses:
+        '200':
+          description: Paginated list of customers retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerSummaryListResponse'
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Resource forbidden.
+        '500':
+          description: Something in the server was wrong.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - Customers
+      summary: Create customer
+      description: Register a new customer
+      operationId: createCustomer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreateRequest'
+        required: true
+      responses:
+        '201':
+          description: Customer successfully registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDetailResponse'
+        '400':
+          description: Something in the request was wrong.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponseList'
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Resource forbidden.
+        '404':
+          description: Some ID you requested was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Something in the server was wrong.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CustomerUpdateRequest:
+      required:
+        - address
+        - client_id
+        - gender
+        - name
+      type: object
+      properties:
+        client_id:
+          type: string
+          description: Client identification (CURP, RFC, passport, etc.)
+          example: XEXX010101000
+        name:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: Customer's full name
+          example: Gloria Leyva
+        gender:
+          type: string
+          description: Customer's gender
+          example: MALE
+          enum:
+            - MALE
+            - FEMALE
+            - NON_BINARY
+            - OTHER
+            - UNDISCLOSED
+        age:
+          minimum: 18
+          type: integer
+          description: Customer's age
+          format: int32
+          example: 35
+        address:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: Customer's address
+          example: Av. Siempre Viva 742, Springfield
+        phone:
+          pattern: ^\+?[1-9]\d{1,14}$
+          type: string
+          description: Phone number in international format
+          example: '+525512345678'
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error description message
+          example: Resource not found
+    ValidationErrorResponse:
+      required:
+        - code
+        - detail
+        - title
+      type: object
+      properties:
+        field:
+          type: string
+          description: Field with error.
+          example: projectId
+        code:
+          type: string
+          description: Error code identifying the problem occurred.
+          example: projectId.notFound
+        title:
+          type: string
+          description: Summary of the problem occurred.
+          example: Project not found
+        detail:
+          type: string
+          description: Message describing what problem has occurred.
+          example: The Project ID you requested was not found.
+    ValidationErrorResponseList:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationErrorResponse'
+    CustomerDetailResponse:
+      required:
+        - address
+        - client_id
+        - encrypted_password
+        - gender
+        - id
+        - name
+        - state
+      type: object
+      properties:
+        id:
+          type: string
+          description: Customer identifier
+          example: 01K4SA5VMMYFDQM9C145SZGPW5
+        client_id:
+          type: string
+          description: Client identification (CURP, RFC, passport, etc.)
+          example: XEXX010101000
+        name:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: Customer's full name
+          example: Gloria Leyva
+        gender:
+          type: string
+          description: Customer's gender
+          example: MALE
+        age:
+          minimum: 18
+          type: integer
+          description: Customer's age
+          format: int32
+          example: 35
+        address:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: Customer's address
+          example: Av. Siempre Viva 742, Springfield
+        phone:
+          pattern: ^\+?[1-9]\d{1,14}$
+          type: string
+          description: Phone number in international format
+          example: '+525512345678'
+        encrypted_password:
+          type: string
+          description: Encrypted customer password
+          example: Gl0r1@.123
+        state:
+          type: boolean
+          description: Flag to indicate whether the customer is active or not
+          example: true
+    CustomerCredentialsUpdateRequest:
+      required:
+        - new_password
+        - old_password
+      type: object
+      properties:
+        old_password:
+          pattern: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$
+          type: string
+          description: Old password in plain text
+          example: Gl0r1@.123
+        new_password:
+          pattern: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$
+          type: string
+          description: New password in plain text
+          example: Gl0r1@.123
+    CustomerCreateRequest:
+      required:
+        - address
+        - client_id
+        - gender
+        - name
+        - password
+      type: object
+      properties:
+        client_id:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: Client identification (CURP, RFC, passport, etc.)
+          example: XEXX010101000
+        name:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: Customer's full name
+          example: Gloria Leyva
+        gender:
+          type: string
+          description: Customer's gender
+          example: MALE
+          enum:
+            - MALE
+            - FEMALE
+            - NON_BINARY
+            - OTHER
+            - UNDISCLOSED
+        age:
+          minimum: 18
+          type: integer
+          description: Customer's age
+          format: int32
+          example: 35
+        address:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: Customer's address
+          example: Av. Siempre Viva 742, Springfield
+        phone:
+          pattern: ^\+?[1-9]\d{1,14}$
+          type: string
+          description: Phone number in international format
+          example: '+525512345678'
+        password:
+          pattern: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$
+          type: string
+          description: Encrypted customer password
+          example: Gl0r1@.123
+    CustomerPartialUpdateRequest:
+      type: object
+      properties:
+        client_id:
+          type: string
+          description: Client identification (CURP, RFC, passport, etc.)
+          example: XEXX010101000
+        name:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: Customer's full name
+          example: Gloria Leyva
+        gender:
+          type: string
+          description: Customer's gender
+          example: MALE
+          enum:
+            - MALE
+            - FEMALE
+            - NON_BINARY
+            - OTHER
+            - UNDISCLOSED
+        age:
+          minimum: 18
+          type: integer
+          description: Customer's age
+          format: int32
+          example: 35
+        address:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: Customer's address
+          example: Av. Siempre Viva 742, Springfield
+        phone:
+          pattern: ^\+?[1-9]\d{1,14}$
+          type: string
+          description: Phone number in international format
+          example: '+525512345678'
+    CustomerSummaryListResponse:
+      type: object
+      properties:
+        page:
+          $ref: '#/components/schemas/PageResponse'
+        customers:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerSummaryResponse'
+    CustomerSummaryResponse:
+      required:
+        - address
+        - id
+        - name
+        - password_status
+        - state
+      type: object
+      properties:
+        id:
+          type: string
+          description: Customer identifier
+          example: 01K4SA5VMMYFDQM9C145SZGPW5
+        name:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: Customer's full name
+          example: Gloria Leyva
+        address:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: Customer's address
+          example: Av. Siempre Viva 742, Springfield
+        phone:
+          pattern: ^\+?[1-9]\d{1,14}$
+          type: string
+          description: Phone number in international format
+          example: '+525512345678'
+        password_status:
+          type: string
+          description: Encrypted customer password
+          example: Gl0r1@.123
+        state:
+          type: boolean
+          description: Flag to indicate whether the customer is active or not
+          example: true
+    PageResponse:
+      type: object
+      properties:
+        number:
+          type: integer
+          description: The number of the page.
+          format: int32
+          example: 0
+        size:
+          type: integer
+          description: The number of elements per page.
+          format: int32
+          example: 10
+        totalElements:
+          type: integer
+          description: The total number of elements.
+          format: int64
+          example: 50
+        totalPages:
+          type: integer
+          description: The total number of pages.
+          format: int32
+          example: 5

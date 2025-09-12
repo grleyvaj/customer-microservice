@@ -11,13 +11,14 @@ public class CustomerEntityUpdater {
 	  CustomerEntity entity,
 	  CustomerUpdateInput customerUpdateInput
 	) {
-		entity.setClientId(customerUpdateInput.getClientId());
-		entity.setName(customerUpdateInput.getName());
-		entity.setGender(customerUpdateInput.getGender());
-		entity.setAge(customerUpdateInput.getAge());
-		entity.setAddress(customerUpdateInput.getAddress());
-		entity.setPhone(customerUpdateInput.getPhone());
-		entity.setUpdatedAt(LocalDateTime.now());
+		entity
+		  .setClientId(customerUpdateInput.getClientId())
+		  .setName(customerUpdateInput.getName())
+		  .setGender(customerUpdateInput.getGender())
+		  .setAge(customerUpdateInput.getAge())
+		  .setAddress(customerUpdateInput.getAddress())
+		  .setPhone(customerUpdateInput.getPhone())
+		  .setUpdatedAt(LocalDateTime.now());
 
 		return entity;
 	}

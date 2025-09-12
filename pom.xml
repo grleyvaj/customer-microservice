@@ -29,7 +29,6 @@
 	<properties>
 		<java.version>21</java.version>
 		<spring-doc.version>2.7.0</spring-doc.version>
-		<maven.version>3.9.0</maven.version>
 		<open-api.version>1.7.0</open-api.version>
 		<ulid.version>5.2.3</ulid.version>
 	</properties>
@@ -67,20 +66,18 @@
 		</dependency>
 		<dependency>
 			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-database-postgresql</artifactId>
 		</dependency>
-
 
 		<!--	Swagger documentation	-->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>${spring-doc.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-model</artifactId>
-			<version>${maven.version}</version>
 		</dependency>
 
 		<!--	Others	-->
@@ -127,6 +124,13 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-info</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
 					<excludes>
 						<exclude>
