@@ -27,7 +27,7 @@ public class CustomerDetailResponse {
 	private String name;
 
 	@JsonProperty("gender")
-	@Schema(description = "${customer.gender.description}", example = "MALE")
+	@Schema(description = "${customer.gender.description}", example = "FEMALE")
 	@NotNull(message = "customer.gender.null")
 	private String gender;
 

@@ -9,8 +9,8 @@ public class CustomerCreatedMessageMapper implements Mapper<Customer, CustomerCr
 	public CustomerCreatedMessage map(Customer event) {
 		return new CustomerCreatedMessage(
 		  event.getClientId(),
-		  event.getName()
-//		  event.getCreatedAt()
+		  event.getName(),
+		  event.getCreatedAt()
 		);
 	}
 

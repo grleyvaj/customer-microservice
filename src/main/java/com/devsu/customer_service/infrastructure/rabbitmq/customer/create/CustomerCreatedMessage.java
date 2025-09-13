@@ -17,7 +17,7 @@ public class CustomerCreatedMessage implements Serializable {
 	@JsonProperty("name")
 	private final String name;
 
-//	@JsonProperty("created_at")
-//	private final LocalDateTime created_at;
+	@JsonProperty("created_at")
+	private final LocalDateTime createdAt;
 
 }

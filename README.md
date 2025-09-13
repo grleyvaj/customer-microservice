@@ -21,3 +21,7 @@ Obtener la IP:
 ```bash
 docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' rabbitmq
 ```
+
+
+### Documentación de la API
+- http://localhost:8081/swagger-ui/index.html#/

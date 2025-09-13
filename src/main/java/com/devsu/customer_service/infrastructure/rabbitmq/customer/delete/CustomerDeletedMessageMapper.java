@@ -9,7 +9,7 @@ public class CustomerDeletedMessageMapper implements Mapper<Customer, CustomerDe
 	public CustomerDeletedMessage map(Customer event) {
 		return new CustomerDeletedMessage(
 		  event.getClientId(),
-		  event.getUpdatedAt()
+		  event.getDeletedAt()
 		);
 	}
 
