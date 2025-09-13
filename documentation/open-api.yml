@@ -9,9 +9,9 @@ info:
 servers:
   - url: http://localhost:8081
     description: Develop server
-  - url: http://staging:8081
+  - url: http://localhost:8081
     description: UAT server
-  - url: http://prod:8081
+  - url: http://localhost:8081
     description: Production server
 tags:
   - name: Customers
@@ -355,7 +355,7 @@ components:
         gender:
           type: string
           description: Customer's gender
-          example: MALE
+          example: FEMALE
           enum:
             - MALE
             - FEMALE
@@ -386,6 +386,60 @@ components:
           type: string
           description: Error description message
           example: Resource not found
+    CustomerDetailResponse:
+      required:
+        - address
+        - client_id
+        - encrypted_password
+        - gender
+        - id
+        - name
+        - state
+      type: object
+      properties:
+        id:
+          type: string
+          description: Customer identifier
+          example: 01K4SA5VMMYFDQM9C145SZGPW5
+        client_id:
+          type: string
+          description: Client identification (CURP, RFC, passport, etc.)
+          example: XEXX010101000
+        name:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: Customer's full name
+          example: Gloria Leyva
+        gender:
+          type: string
+          description: Customer's gender
+          example: FEMALE
+        age:
+          minimum: 18
+          type: integer
+          description: Customer's age
+          format: int32
+          example: 35
+        address:
+          maxLength: 255
+          minLength: 0
+          type: string
+          description: Customer's address
+          example: Av. Siempre Viva 742, Springfield
+        phone:
+          pattern: ^\+?[1-9]\d{1,14}$
+          type: string
+          description: Phone number in international format
+          example: '+525512345678'
+        encrypted_password:
+          type: string
+          description: Encrypted customer password
+          example: Gl0r1@.123
+        state:
+          type: boolean
+          description: Flag to indicate whether the customer is active or not
+          example: true
     ValidationErrorResponse:
       required:
         - code
@@ -416,60 +470,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationErrorResponse'
-    CustomerDetailResponse:
-      required:
-        - address
-        - client_id
-        - encrypted_password
-        - gender
-        - id
-        - name
-        - state
-      type: object
-      properties:
-        id:
-          type: string
-          description: Customer identifier
-          example: 01K4SA5VMMYFDQM9C145SZGPW5
-        client_id:
-          type: string
-          description: Client identification (CURP, RFC, passport, etc.)
-          example: XEXX010101000
-        name:
-          maxLength: 100
-          minLength: 0
-          type: string
-          description: Customer's full name
-          example: Gloria Leyva
-        gender:
-          type: string
-          description: Customer's gender
-          example: MALE
-        age:
-          minimum: 18
-          type: integer
-          description: Customer's age
-          format: int32
-          example: 35
-        address:
-          maxLength: 255
-          minLength: 0
-          type: string
-          description: Customer's address
-          example: Av. Siempre Viva 742, Springfield
-        phone:
-          pattern: ^\+?[1-9]\d{1,14}$
-          type: string
-          description: Phone number in international format
-          example: '+525512345678'
-        encrypted_password:
-          type: string
-          description: Encrypted customer password
-          example: Gl0r1@.123
-        state:
-          type: boolean
-          description: Flag to indicate whether the customer is active or not
-          example: true
     CustomerCredentialsUpdateRequest:
       required:
         - new_password
@@ -510,7 +510,7 @@ components:
         gender:
           type: string
           description: Customer's gender
-          example: MALE
+          example: FEMALE
           enum:
             - MALE
             - FEMALE
