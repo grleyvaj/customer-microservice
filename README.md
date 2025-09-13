@@ -2,7 +2,7 @@
 Microservicio que gestiona la información de los clientes, al momento de crear/actualizar/eliminar se establece una 
 conexión async con el MS de cuentas para registrar al cliente. Esta API cuenta con un CRUD `/customers`. La API
 fue desarrollada con Java y Spring Boot, y Postgres como Gestor de base de datos, siguiendo una arquitectura hexagonal y DDD.
-Se implementaron pruebas con Postman y algunas pruebas unitarias.
+Se implementaron pruebas con Postman y algunas pruebas unitarias, que se describen en la última sección de este README
 
 ### Levantar los microservicios
 - Se puede levantar los microservicios en local
@@ -63,3 +63,15 @@ Eliminar rabbit:
 ```bash
     docker rm rabbitmq
 ```
+
+### Pruebas unitarias y de integración
+
+Acorde al **F5 Test para la entidad de dominio Cliente**, se implementáron los test:
+- CustomerTest
+- CustomerCreateRequestTest
+- CustomerCreateRequestValidationTest
+
+Acorde al **F6 Pruebas de integracion: implementar 1 prueba de integracion**, se implemetó el test:
+- ITCustomersApiControllerTest
+Entre otros test, no todos por cuestiones de tiempo
+![unit-and-integration-test.png](documentation/unit-and-integration-test.png)
