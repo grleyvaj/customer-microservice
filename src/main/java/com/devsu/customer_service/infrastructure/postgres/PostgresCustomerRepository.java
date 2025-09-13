@@ -128,14 +128,14 @@ public class PostgresCustomerRepository implements CustomerRepository {
 	}
 
 	@Override
-	public void delete(String customerId) throws ResourceNotFoundException {
+	public Customer delete(String customerId) throws ResourceNotFoundException {
 		CustomerEntity customerEntity = this.jpaCustomerRepository.findByIdAndIsDeletedFalse(customerId)
 		  .orElseThrow(() -> new ResourceNotFoundException("Customer %s not found".formatted(customerId)));
 
 		customerEntity.setIsDeleted(Boolean.TRUE);
 		customerEntity.setDeletedAt(LocalDateTime.now());
 
-		this.jpaCustomerRepository.save(customerEntity);
+		return this.customerMapper.map(this.jpaCustomerRepository.save(customerEntity));
 	}
 
 }

@@ -31,6 +31,7 @@
 		<spring-doc.version>2.7.0</spring-doc.version>
 		<open-api.version>1.7.0</open-api.version>
 		<ulid.version>5.2.3</ulid.version>
+		<retry.version>2.0.12</retry.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -105,6 +106,20 @@
 			<artifactId>spring-security-crypto</artifactId>
 		</dependency>
 
+		<!--	Async message	-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.retry</groupId>
+			<artifactId>spring-retry</artifactId>
+			<version>${retry.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-json</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

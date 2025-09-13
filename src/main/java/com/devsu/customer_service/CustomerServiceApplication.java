@@ -2,6 +2,7 @@ package com.devsu.customer_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication(
   scanBasePackages = {
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 	"com.devsu.customer_service.infrastructure.persistence"
   }
 )
+@EnableAsync
 public class CustomerServiceApplication {
 
 	public static void main(String[] args) {

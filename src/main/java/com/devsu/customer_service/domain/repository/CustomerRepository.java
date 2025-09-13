@@ -31,6 +31,6 @@ public interface CustomerRepository {
 
 	PaginationModel<Customer> getAll(PaginationFilters filters);
 
-	void delete(String customerId) throws ResourceNotFoundException;
+	Customer delete(String customerId) throws ResourceNotFoundException;
 
 }

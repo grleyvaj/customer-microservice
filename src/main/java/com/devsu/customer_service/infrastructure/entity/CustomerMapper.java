@@ -18,9 +18,9 @@ public class CustomerMapper implements Mapper<CustomerEntity, Customer> {
 		  entity.getEncryptedPassword(),
 		  entity.getIsActive(),
 		  entity.getIsDeleted(),
-		  entity.getCreatedAt()
+		  entity.getCreatedAt(),
+		  entity.getUpdatedAt()
 		)
-		  .setUpdatedAt(entity.getUpdatedAt())
 		  .setDeletedAt(entity.getDeletedAt());
 	}
 

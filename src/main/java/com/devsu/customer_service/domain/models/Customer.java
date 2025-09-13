@@ -24,9 +24,10 @@ public class Customer extends Person {
 	  String encryptedPassword,
 	  Boolean isActive,
 	  Boolean isDeleted,
-	  LocalDateTime createdAt
+	  LocalDateTime createdAt,
+	  LocalDateTime updatedAt
 	) {
-		super(id, name, gender, age, address, phone, encryptedPassword, isActive, isDeleted, createdAt);
+		super(id, name, gender, age, address, phone, encryptedPassword, isActive, isDeleted, createdAt, updatedAt);
 		this.clientId = clientId;
 	}
 

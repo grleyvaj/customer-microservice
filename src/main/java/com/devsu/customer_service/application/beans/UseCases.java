@@ -12,6 +12,7 @@ import com.devsu.customer_service.domain.use_cases.customer.partial_update.Custo
 import com.devsu.customer_service.domain.use_cases.customer.update.CustomerUpdateInputValidator;
 import com.devsu.customer_service.domain.use_cases.customer.update.CustomerUpdateUseCase;
 import com.devsu.customer_service.domain.use_cases.customer.update_credentials.CustomerCredentialUpdateUseCase;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,12 +23,14 @@ public class UseCases {
 	public CustomerCreateUseCase customerCreateUseCase(
 	  CustomerRepository customerRepository,
 	  CustomerCreateInputValidator customerCreateInputValidator,
-	  PasswordService passwordEncoder
+	  PasswordService passwordEncoder,
+	  ApplicationEventPublisher applicationEventPublisher
 	) {
 		return new CustomerCreateUseCase(
 		  customerRepository,
 		  customerCreateInputValidator,
-		  passwordEncoder
+		  passwordEncoder,
+		  applicationEventPublisher
 		);
 	}
 
@@ -39,11 +42,13 @@ public class UseCases {
 	@Bean
 	public CustomerUpdateUseCase customerUpdateUseCase(
 	  CustomerRepository customerRepository,
-	  CustomerUpdateInputValidator customerUpdateInputValidator
+	  CustomerUpdateInputValidator customerUpdateInputValidator,
+	  ApplicationEventPublisher applicationEventPublisher
 	) {
 		return new CustomerUpdateUseCase(
 		  customerRepository,
-		  customerUpdateInputValidator
+		  customerUpdateInputValidator,
+		  applicationEventPublisher
 		);
 	}
 
@@ -77,8 +82,14 @@ public class UseCases {
 	}
 
 	@Bean
-	public CustomerDeleteUseCase customerDeleteUseCase(CustomerRepository customerRepository) {
-		return new CustomerDeleteUseCase(customerRepository);
+	public CustomerDeleteUseCase customerDeleteUseCase(
+	  CustomerRepository customerRepository,
+	  ApplicationEventPublisher applicationEventPublisher
+	) {
+		return new CustomerDeleteUseCase(
+		  customerRepository,
+		  applicationEventPublisher
+		);
 	}
 
 }

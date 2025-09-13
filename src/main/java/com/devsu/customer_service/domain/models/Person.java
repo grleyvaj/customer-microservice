@@ -19,7 +19,7 @@ public class Person {
 	private final Boolean isActive;
 	private final Boolean isDeleted;
 	private final LocalDateTime createdAt;
-	private LocalDateTime updatedAt;
+	private final LocalDateTime updatedAt;
 	private LocalDateTime deletedAt;
 
 }

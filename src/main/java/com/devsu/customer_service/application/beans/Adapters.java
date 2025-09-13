@@ -23,6 +23,12 @@ import com.devsu.customer_service.infrastructure.entity.CustomerEntity;
 import com.devsu.customer_service.infrastructure.entity.CustomerEntityMapper;
 import com.devsu.customer_service.infrastructure.entity.CustomerEntityUpdater;
 import com.devsu.customer_service.infrastructure.entity.CustomerMapper;
+import com.devsu.customer_service.infrastructure.rabbitmq.customer.create.CustomerCreatedMessage;
+import com.devsu.customer_service.infrastructure.rabbitmq.customer.create.CustomerCreatedMessageMapper;
+import com.devsu.customer_service.infrastructure.rabbitmq.customer.delete.CustomerDeletedMessage;
+import com.devsu.customer_service.infrastructure.rabbitmq.customer.delete.CustomerDeletedMessageMapper;
+import com.devsu.customer_service.infrastructure.rabbitmq.customer.update.CustomerUpdatedMessage;
+import com.devsu.customer_service.infrastructure.rabbitmq.customer.update.CustomerUpdatedMessageMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -79,6 +85,21 @@ public class Adapters {
 	@Bean
 	public Mapper<Pagination, PageResponse> pageResponseMapper() {
 		return new PageResponseMapper();
+	}
+
+	@Bean
+	public Mapper<Customer, CustomerCreatedMessage> customerCreatedMessageMapper() {
+		return new CustomerCreatedMessageMapper();
+	}
+
+	@Bean
+	public Mapper<Customer, CustomerUpdatedMessage> customerUpdatedMessageMapper() {
+		return new CustomerUpdatedMessageMapper();
+	}
+
+	@Bean
+	public Mapper<Customer, CustomerDeletedMessage> customerDeletedMessageMapper() {
+		return new CustomerDeletedMessageMapper();
 	}
 
 }
